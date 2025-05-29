@@ -1,21 +1,19 @@
 class Solution {
     public int firstUniqChar(String s) {
-        // 1. traverse the array and at every index - 
-        //2. compare it with all other elements.
-        //3. if at any index - non repating character then return -1
-        //4. else return the i
-        int result = -1;
-        
-        for(int i = 0; i < s.length(); i++){
-            int count = 0;
-            for(int j = 0; j < s.length(); j++){
-                if(i!= j && s.charAt(i) == s.charAt(j)){
-                    count++;
-                    break;
-                }
-            }
-            if(count == 0) return i;
+        //1. created a freq array to store the count
+        //2. iterate the string s to find the character == 1
+        //3. return it else return -1
+
+      int[] freq = new int[26];
+      for(int i = 0; i < s.length(); i++){
+        freq[s.charAt(i) - 'a']++;
+      }  
+
+      for(int i = 0; i < s.length(); i++){
+        if(freq[s.charAt(i) - 'a'] == 1){
+            return i;
         }
-        return result;    
+      }
+        return -1;
     }
 }
