@@ -15,7 +15,7 @@ class Solution {
         if(head == null) return null;
         ListNode prev = null;
         ListNode curr = head;
-        ListNode temp = curr;
+        ListNode temp = head;
 
         while(curr != null){
 
