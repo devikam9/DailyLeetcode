@@ -1,18 +1,18 @@
 class Solution {
     public int findContentChildren(int[] g, int[] s) {
+        //1. sort both arrays
+        Arrays.sort(g);
         Arrays.sort(s);
-        int max = 0;
-        for(int i = 0; i < g.length; i++){
-            // int index = 0;
-            for(int j = 0; j < s.length; j++){
+        int m = g.length, n = s.length;
+        //2. two pointer approach 
+        int left = 0, right = 0;
+        while(left < m && right < n){
 
-                if(s[j] >= g[i]){
-                    s[j] = 0;
-                    max++;
-                    break;
-                }
+            if(s[right] >= g[left]){
+                left++;
             }
+            right++;
         }
-        return max;    
+        return left;    
     }
 }
