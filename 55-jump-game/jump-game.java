@@ -7,7 +7,7 @@ class Solution {
             if(i > max) return false;
             max = Math.max(max, i + nums[i]);
             // any point we reaches n-1 or n 
-            // if(max > nums.length - 1) return true;
+            if(max > nums.length - 1) return true;
         }
         return true;
     }
