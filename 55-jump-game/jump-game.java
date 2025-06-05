@@ -1,14 +1,26 @@
 class Solution {
+    int[] memo;
     public boolean canJump(int[] nums) {
+        memo = new int[nums.length + 1];
+        Arrays.fill(memo,-1);
 
-        int max = 0;
+        return helper(0,nums);    
+    }
+    private boolean helper(int index, int[] nums){
 
-        for(int i = 0; i < nums.length; i++){
-            if(i > max) return false;
-            max = Math.max(max, i + nums[i]);
-            // any point we reaches n-1 or n 
-            if(max > nums.length - 1) return true;
+        if(index >= nums.length - 1) return true;
+
+        if(memo[index] != -1) return memo[index] == 1;
+        int val = nums[index];
+
+        for(int i = 1; i <= val; i++){
+            if(helper(index+i,nums) == true) {
+                memo[index] = 1;
+                return true;
+            } 
         }
-        return true;
+        memo[index] = 0;
+        return false;
+        
     }
 }
