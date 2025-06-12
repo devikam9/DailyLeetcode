@@ -5,8 +5,9 @@ class Solution {
             if(prices[i] > min){
              int profit = prices[i] - min;
              max = Math.max(profit,max);
+            }else{
+                min = prices[i];
             } 
-            min = Math.min(min,prices[i]);   
         }
 
         return max;
