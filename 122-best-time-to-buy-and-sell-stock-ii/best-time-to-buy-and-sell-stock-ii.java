@@ -1,18 +1,31 @@
 class Solution {
+    int profit;
+    int[][] dp;
     public int maxProfit(int[] prices) {
-        if (prices == null || prices.length == 0) {
-            return 0;
+       
+       int len = prices.length;
+       dp = new int[len][2];
+       for(int[] row : dp)
+            Arrays.fill(row,-1);
+       
+
+       return findProfit(prices,0,1);    
+    }
+
+    private int findProfit(int[] prices, int index, int buy){
+
+        if(index >= prices.length) return 0;
+
+        if(dp[index][buy] != -1) return dp[index][buy];
+        if(buy == 1){
+            //sell
+            profit = Math.max(-prices[index] + findProfit(prices,index+1,0) , 0 + findProfit(prices,index+1,1));
+
+        }else{
+            //buy
+            profit = Math.max(+prices[index] + findProfit(prices,index+1,1) , 0 + findProfit(prices,index+1,0));
         }
 
-        int profit = 0;
-        for (int i = 1; i < prices.length; i++) {
-            // If selling today is profitable compared to yesterday, we sell
-            if (prices[i] > prices[i - 1]) {
-                profit += prices[i] - prices[i - 1];
-            }
-        }
-
-        return profit;
-        
+        return dp[index][buy] = profit;
     }
 }
