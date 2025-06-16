@@ -1,24 +1,24 @@
 class Solution {
-
     public int findTheWinner(int n, int k) {
-        //tc - adding elements - o(n) + add and remove ach element for k -1 times. we do this for n - 1 elements = (n - 1) * (k - 1) = O(n * k)
-        // sc - O(n)
-        // Initialize queue with n friends
-        Queue<Integer> circle = new LinkedList<Integer>();
-        for (int i = 1; i <= n; i++) {
-            circle.add(i);
+        //1. keep a list and all the players
+        List<Integer> players = new ArrayList<>();
+        for(int i = 1; i <= n; i++){
+            players.add(i);
         }
+        //2. keep the currindex and a count to check if it reaches k
+        
+        int currIndex = 0;
+        //3. iterate the list till list size is equal to 1
+        while(players.size() > 1){            
 
-        // Perform eliminations while more than 1 player remains
-        while (circle.size() > 1) {
-            // Process the first k-1 friends without eliminating them
-            for (int i = 0; i < k - 1; i++) {
-                circle.add(circle.remove());
-            }
-            // Eliminate the k-th friend
-            circle.remove();
+            // 4. use circular list to reset to the beginning index
+            int removeIndex = (currIndex + k -1) % players.size();
+            //5. remove them from list if they are at k position
+            players.remove(removeIndex);
+            currIndex = removeIndex;    
         }
+        //6. return the first element present in the list
+        return players.getFirst();
 
-        return circle.peek();
     }
 }
