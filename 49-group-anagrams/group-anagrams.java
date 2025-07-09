@@ -35,9 +35,17 @@ class Solution {
 
         StringBuffer sb = new StringBuffer();
 
-        for(int val : count){
-            sb.append(val + ",");
+
+        for(int i=0; i<26; i++) {
+            while(count[i] > 0) {
+                sb.append((char) i + 'a');
+                count[i]--;
+            }
         }
+
+        // for(int val : count){
+        //     sb.append(val + ",");
+        // }
 
         return sb.toString();
     }
