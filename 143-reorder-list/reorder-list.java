@@ -10,45 +10,44 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        //1. fast and slow pointers then you stop at slow when fast reaches null;
-        //2. slow . next = prev, you reverse linkedlist after slow.next to end.
-        //3. iterate from head and prev insert alternatively.
+        //1. use fast and slow to find the mid
+        //2. from mid to end reverse the list
+        //3. insert alternaively head to mid, reversed list and return.
 
+        //1.
         ListNode fast = head;
         ListNode slow = head;
 
-        while(fast != null && fast.next != null){
+        while(fast!= null && fast.next != null){
             fast = fast.next.next;
             slow = slow.next;
         }
-        
-        ListNode prev = null;
-        ListNode curr = slow;
-        ListNode next = curr;
 
-        //reverse the LinkedList from prev to null.
+        //2.
+        ListNode curr = slow;
+        ListNode next = slow;
+        ListNode prev = null;
 
         while(curr != null){
             next = curr.next;
-            curr.next = prev;;
+            curr.next = prev;
             prev = curr;
             curr = next;
         }
-
         
-        ListNode second = prev;
-        ListNode first = head;
-        while(second.next != null){
-            ListNode temp1 = first.next;
-            ListNode temp2 = second.next;
+        //3.
+        ListNode temp1 = head;
+        ListNode temp2 = prev;
 
-            first.next = second;
-            second.next = temp1;
+        while(temp2.next != null){
+            ListNode first = temp1.next;
+            ListNode second = temp2.next;
+
+            temp1.next = temp2;
+            temp2.next = first;
             
-            first = temp1;
-            second = temp2;
-            
-        }       
-        
+            temp1 = first;
+            temp2 = second;
+        }
     }
 }
