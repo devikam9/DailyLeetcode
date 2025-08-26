@@ -10,36 +10,27 @@
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-
-        //Bruteforce approach
-
-        //iterate the list and get size
-        //subtract n from size and iterate again till n -1 and remove n
-
+        
+        //for loop k = size - n 
         ListNode temp = head;
         int size = 0;
         while(temp != null){
-            size++;
             temp = temp.next;
+            size++;
         }
 
-        if(size == n){
-            //remove the 0 index i.e; head - so you will return head.next
-             return head.next;
+        if (n == size) {
+            return head.next;
         }
-        int remPos = size - n;
-        temp = head;
-        while(temp != null){
-            remPos--;
-            if(remPos == 0){
-                temp.next = temp.next.next;
-                break;
-            }
-            
-            temp = temp.next;
+        int k = size - n;
+        ListNode temp1 = head;
+        ListNode prev = null;
+        for(int i = 1; i < k && temp1 != null; i++){
+            prev = temp1;
+            temp1 = temp1.next;   
         }
+        temp1.next = temp1.next.next;
 
         return head;
-        
     }
 }
