@@ -1,45 +1,44 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int n1 = nums1.length , n2 = nums2.length;
+        int n = n1 + n2;
 
-        int[] result = new int[nums1.length + nums2.length];
-
-
-        int index1 = 0, index2 = 0, index = 0;
-
-        while(index1 < nums1.length && index2 < nums2.length){
-
-            if(nums1[index1] <= nums2[index2]){
-                result[index] = nums1[index1];
-                index1++;
-                index++;
+        int count = 0, indEle2 = -1 , indEle1 = -1 ,ind1 = n/2 - 1, ind2 = n/2;
+        int i = 0, j = 0;
+        while(i < n1 && j < n2){
+            if(nums1[i] <= nums2[j]){
+                if(count == ind1) indEle1 = nums1[i];
+                if(count == ind2) indEle2 = nums1[i];
+                count++;
+                i++;
             }else{
-                result[index] = nums2[index2];
-                index2++;
-                index++;
+                if(count == ind1) indEle1 = nums2[j];
+                if(count == ind2) indEle2 = nums2[j];
+                count++;
+                j++;
             }
-        }
-        
-        while(index1 != nums1.length){
-            result[index] = nums1[index1];
-            index1++;
-            index++;
+            
         }
 
-        while(index2 != nums2.length){
-            result[index] = nums2[index2];
-            index2++;
-            index++;
+        while(i < n1){
+            if(count == ind1) indEle1 = nums1[i];
+            if(count == ind2) indEle2 = nums1[i];
+            count++;
+            i++;
         }
 
-        if(result.length % 2 != 0){
-            //odd
-            int mid = (0 + result.length-1)/2;
-            return (double)result[mid];
-        }else{
-            //even
-            int mid = (0 + result.length-1)/2;
-            return (double)(result[mid] + result[mid+1])/2;
+        while(j < n2){
+            if(count == ind1) indEle1 = nums2[j];
+            if(count == ind2) indEle2 = nums2[j];
+            count++;
+            j++;
         }
-        
+
+        if(n%2 == 1){
+            return indEle2;
+        }
+
+        return (double)((indEle1 + indEle2)/2.0);
+
     }
 }
