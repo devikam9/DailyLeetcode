@@ -1,51 +1,35 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
+        
+        //1. create a map and store the freq of each string
+        //2. add to the resultant array all the lists.
+
 
         Map<String,List<String>> map = new HashMap<>();
-        for(String string : strs){
-            String freq = getFrequency(string);
+        for(String str : strs){
+            String freq = getFreq(str.toCharArray());
 
             if(!map.containsKey(freq)){
-                map.put(freq,new ArrayList<>());
+                map.put(freq, new ArrayList<String>());
             }
-            List<String> list = map.get(freq);
-            list.add(string);
-            map.put(freq,list);
+            map.get(freq).add(str);
         }
-
-        List<List<String>> result = new ArrayList<>();
-        for(Map.Entry<String,List<String>> entry :  map.entrySet()){
-            result.add(entry.getValue());
-        }
-        
-        
-        // List<List<String>> result = new ArrayList<>(map.values());
+        List<List<String>> result = new ArrayList<>(map.values());
 
         return result;
     }
 
-    private String getFrequency(String str){
+    private String getFreq(char[] ch){
+        int[] charCount = new int[26];
 
-        int[] count = new int[26];
-
-        for(int i = 0; i < str.length(); i++){
-            char ch = str.charAt(i);
-            count[ch - 'a']++;
+        for(char c : ch){
+            charCount[c - 'a']++;
         }
 
-        StringBuffer sb = new StringBuffer();
-
-
-        for(int i=0; i<26; i++) {
-            while(count[i] > 0) {
-                sb.append((char) i + 'a');
-                count[i]--;
-            }
+        StringBuilder sb = new StringBuilder();
+        for(int i : charCount){
+            sb.append(i + ",");
         }
-
-        // for(int val : count){
-        //     sb.append(val + ",");
-        // }
 
         return sb.toString();
     }
