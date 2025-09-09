@@ -25,7 +25,7 @@ class Solution {
         if(r < 0 || c < 0 || r >= grid.length || c >= grid[0].length || visited[r][c] || grid[r][c] == 0){
             return 0;
         }
-        count++;
+        // count++;
         visited[r][c] = true;
         int[] rows = new int[]{-1,1,0,0};
         int[] cols = new int[]{0,0,-1,1};
