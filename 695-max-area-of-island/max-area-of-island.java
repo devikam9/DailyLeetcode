@@ -13,7 +13,7 @@ class Solution {
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
                 if( visited[i][j] == false && grid[i][j] == 1){
-                    int area = dfs(i,j,grid,visited,m,n,0);
+                    int area = dfs(i,j,grid,visited,m,n);
                     maxArea = Math.max(area,maxArea);
                 }
             }
@@ -21,11 +21,10 @@ class Solution {
         return maxArea;
     }
 
-    public int dfs(int r, int c, int[][] grid, boolean[][] visited, int m, int n, int count){
+    public int dfs(int r, int c, int[][] grid, boolean[][] visited, int m, int n){
         if(r < 0 || c < 0 || r >= grid.length || c >= grid[0].length || visited[r][c] || grid[r][c] == 0){
             return 0;
         }
-        // count++;
         visited[r][c] = true;
         int[] rows = new int[]{-1,1,0,0};
         int[] cols = new int[]{0,0,-1,1};
@@ -33,7 +32,7 @@ class Solution {
         for(int i = 0; i < 4; i++){
             int nRow = r + rows[i];
             int nCol = c + cols[i];
-            tempArea += dfs(nRow,nCol,grid,visited,m,n,count);
+            tempArea += dfs(nRow,nCol,grid,visited,m,n);
         }
         return tempArea+1;
     }
