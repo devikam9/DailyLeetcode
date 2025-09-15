@@ -40,10 +40,8 @@ class Solution {
                 }
                 
             }
-            result.add(list);
-            
+            result.add(list);    
         }
-
         return result;    
     }
 }
